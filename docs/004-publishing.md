@@ -1,9 +1,9 @@
 # 社区插件发布流程与权限现状（magpie-pollination）
 
-版本：0.1.0
-日期：2026-11-17
-状态：调研完成，发布材料已备好，等待有权限的维护者执行
-适用包：`@magpie-community/opencode-pollinations-auth`，版本 `0.1.0`
+版本：0.2.0
+日期：2026-11-19
+状态：已发布（2026-11-19 直发 npm + GitHub 源码仓库；社区仓库 registry 条目仍待维护者加入，见第七节）
+适用包：`@sterra-mind/magpie-pollinations`（2026-11-19 已发布，见文末发布记录）
 
 ## 1. 核对范围与结论
 
@@ -21,7 +21,7 @@
 | 贡献说明 | `README.md` 第 402 行 `## Write your own`、第 467 行 `## Publishing`、第 449 行 `### One channel already listed` | 已确认沙箱测试命令、首次发布限制、同渠道差异说明要求 |
 | 适配器 | `scripts/opencode2.mjs` 与本仓库 `packages/pollinations/opencode2.mjs` | 两者 SHA256 都是 `5C8E87FA36E36FFF1C27F84DCADCED491E193880C3FA49C2D3A0E3C6BF64CB77`，字节一致 |
 
-本包 `packages/pollinations/package.json` 的字段与参考包一致：`name` 为 `@magpie-community/opencode-pollinations-auth`，`main` 为 `./opencode.mjs`，`exports` 为 `{".": "./opencode2.mjs"}`，`files` 列出 `index.mjs`、`api.mjs`、`models.mjs`、`usage.mjs`、`opencode.mjs`、`opencode2.mjs`、`README.md`、`LICENSE`，`keywords` 含 `opencode`、`opencode-plugin`、`magpie`，`license` 为 `MIT`，`repository` 指向 `magpie-community/plugins` 的 `packages/pollinations`，`scripts.test` 为 `bun test`，`magpie.icon` 为 `https://pollinations.ai/favicon.ico`。`opencode.mjs` 按 OpenCode 1.x 写法重导出，例如 `export { PollinationsPlugin } from "./index.mjs"`。
+本包 `packages/pollinations/package.json` 的字段与参考包一致：`name` 为 `@sterra-mind/magpie-pollinations`（2026-11-19 由 `@magpie-community/opencode-pollinations-auth` 改为此名后发布），`main` 为 `./opencode.mjs`，`exports` 为 `{".": "./opencode2.mjs"}`，`files` 列出 `index.mjs`、`api.mjs`、`models.mjs`、`usage.mjs`、`opencode.mjs`、`opencode2.mjs`、`README.md`、`LICENSE`，`keywords` 含 `opencode`、`opencode-plugin`、`magpie`、`pollinations`、`pollen`、`openai-compatible`、`auth`，`license` 为 `MIT`，`repository` 指向 `github.com/sterraMind/magpie-pollinations` 的 `packages/pollinations`，`scripts.test` 为 `bun test`，`magpie.icon` 为 `https://pollinations.ai/favicon.ico`。`opencode.mjs` 按 OpenCode 1.x 写法重导出，例如 `export { PollinationsPlugin } from "./index.mjs"`。
 
 ## 2. 发布流程说明
 
@@ -200,8 +200,8 @@ MAGPIE=/path/to/magpie scripts/try.sh pollinations
 7. 验证发布结果。
 
    ```sh
-   npm view @magpie-community/opencode-pollinations-auth version
-   magpie plugin add @magpie-community/opencode-pollinations-auth
+   npm view @sterra-mind/magpie-pollinations version
+   magpie plugin add @sterra-mind/magpie-pollinations
    ```
 
    npm 尚未返回版本时，magpie 仍可从 `dist` 分支安装该版本。这种行为符合 README 的说明，不需要把工作流判为失败。
@@ -243,7 +243,7 @@ MAGPIE=/path/to/magpie scripts/try.sh pollinations
 
 6. 从 fork 向 `magpie-community/plugins` 的 `main` 开 PR。PR 描述写下面这些要点：
 
-   - 新增 provider 插件 `@magpie-community/opencode-pollinations-auth@0.1.0`，provider id 为 `pollinations`，market 名称是 `Pollinations`。
+   - 新增 provider 插件 `@sterra-mind/magpie-pollinations@0.3.0`（2026-11-19 已直发 npm，见第 8 节发布记录），provider id 为 `pollinations`，market 名称是 `Pollinations`。
    - 登录方式有两种：手动粘贴 `sk_` 密钥，以及 `pk_` 发起设备码登录并换取 `sk_`。
    - 能力范围是动态发现 OpenAI 兼容的 text 模型、显示 Pollen 钱包余额（总额、Quest、已购）、读取账号用量和密钥用量。不实现签到：上游没有每日签到赠送、quest 领取只能在网页端，插件的 checkin 不发放额度，已按要求移除（见 005 测试报告第九节）。
    - 安全边界是只访问 `gen.pollinations.ai` 与 `enter.pollinations.ai`，密钥只放在 `Authorization` 请求头里，不进入 URL 查询参数和日志。
@@ -261,7 +261,7 @@ MAGPIE=/path/to/magpie scripts/try.sh pollinations
 
 ```json
 {
-  "package": "@magpie-community/opencode-pollinations-auth",
+  "package": "@sterra-mind/magpie-pollinations",
   "name": "Pollinations",
   "icon": "https://pollinations.ai/favicon.ico",
   "providers": ["pollinations"],
@@ -282,3 +282,14 @@ MAGPIE=/path/to/magpie scripts/try.sh pollinations
 > 用密钥或设备码登录 Pollinations：动态发现 OpenAI 兼容模型，显示 Pollen 余额、任务状态与用量。任务奖励需在网页领取。
 
 两点说明。第一，`icon` 使用 Pollinations 官网的 favicon；如果维护者要求图标随包发布，应改用包内 `icon.svg`，并同步修改 `package.json` 的 `magpie.icon`。第二，这条目不带 `kind` 字段，因为它是 provider 插件；`check.mjs` 会把带未知 `kind` 的 provider 条目判为错误。
+
+## 8. 发布记录（2026-11-19）
+
+按用户决定走直发路线（不经 magpie-community 维护者），实际执行如下：
+
+1. GitHub 源码仓库：`https://github.com/sterraMind/magpie-pollinations`（公开），仓库根含 `AGENTS.md`、`MEMORY.md`、`docs/`、`packages/pollinations/`，与 `package.json` 的 `repository.directory` 一致。
+2. npm 发布：`@sterra-mind/magpie-pollinations@0.3.0`（scope 必须与 npm 用户名 `sterra-mind` 完全一致，故未用 `@sterramind`），`--access public`，9 个文件、19.5 kB。发布命令用的临时 `.npmrc` 放在 `.drafts/publish/npmrc-pub`（含 registry 与 `_authToken`，该文件不进仓库）。
+3. 标签（keywords）：`opencode`、`opencode-plugin`、`magpie`、`pollinations`、`pollen`、`openai-compatible`、`auth`，与其他 magpie 插件的 `opencode`/`opencode-plugin`/`magpie` 惯例一致并附加本渠道关键词。
+4. 验收：`npm view @sterra-mind/magpie-pollinations` 元数据正确；本机 magpie 执行 `plugin remove`（本地路径版）+ `plugin add @sterra-mind/magpie-pollinations@0.3.0`，加载 159 个模型、登录状态（Device JJ4S7R7P）保留，验收通过。
+5. 备注：npm 在首次发布时自动生成了一个 `0.0.0-stage` 占位版本（npm 新版注册表的暂存发布机制），`latest` 标签指向 `0.3.0`，不影响 `magpie plugin add`（取 latest）。
+6. 遗留：社区仓库 `registry.json` 条目（见本节上文与 006 文档）待向 magpie-community/plugins 提 PR 时由有权限的维护者加入；届时若社区要求改用 `@magpie-community` scope，需要另行发布对应包名。

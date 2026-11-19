@@ -10,7 +10,7 @@
 
 ## 一、验收范围与方式
 
-- 被验收包：`packages/pollinations/`，包名 `@magpie-community/opencode-pollinations-auth`，版本 `0.1.0`。
+- 被验收包：`packages/pollinations/`，2026-11-18 验收时包名 `@magpie-community/opencode-pollinations-auth`（版本 `0.1.0`）；2026-11-19 已以 `@sterra-mind/magpie-pollinations@0.3.0` 发布到 npm（改名不影响已验收结论，发布后本机用 npm 包重新加载验证通过）。
 - 校验脚本：社区仓库克隆 `.drafts/magpie-uvx-rootcause/magpie-community-plugins/` 中的 `scripts/check.mjs` 与 `scripts/registry.mjs`。
 - 本机运行时：bun 1.4.4。
 - 操作方式：用 `Copy-Item -Recurse -Force` 把工作区 `packages/pollinations/` 整体复制到社区克隆的 `packages/pollinations/`，在社区克隆根目录运行校验脚本。校验结束后已恢复社区克隆的 `registry.json`，并移除临时复制的 `packages/pollinations/`，未改动社区仓库其他已有包，未执行任何 git commit、push 或发布脚本。

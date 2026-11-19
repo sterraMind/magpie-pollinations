@@ -10,7 +10,7 @@
 
 ```json
 {
-  "package": "@magpie-community/opencode-pollinations-auth",
+  "package": "@sterra-mind/magpie-pollinations",
   "name": "Pollinations",
   "icon": "https://pollinations.ai/favicon.ico",
   "providers": ["pollinations"],
