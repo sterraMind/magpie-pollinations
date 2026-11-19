@@ -1,0 +1,8 @@
+# 临时产物（一次性脚本、调研落盘、临时日志），不进仓库
+.drafts/
+.mp/
+
+# 依赖与日志
+node_modules/
+*.log
+.DS_Store

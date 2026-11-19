@@ -1,0 +1,15 @@
+{
+  "name": "@sterramind/magpie-pollinations",
+  "version": "0.3.0",
+  "description": "Pollinations provider for OpenCode and magpie: secret key or device-code sign-in, live OpenAI-compatible models, and Pollen wallet balance",
+  "type": "module",
+  "main": "./opencode.mjs",
+  "exports": { ".": "./opencode2.mjs" },
+  "files": ["index.mjs", "api.mjs", "models.mjs", "usage.mjs", "opencode.mjs", "opencode2.mjs", "README.md", "LICENSE"],
+  "keywords": ["opencode", "opencode-plugin", "magpie", "pollinations", "pollen", "openai-compatible", "auth"],
+  "license": "MIT",
+  "repository": { "type": "git", "url": "git+https://github.com/sterraMind/magpie-pollinations", "directory": "packages/pollinations" },
+  "scripts": { "test": "bun test" },
+  "publishConfig": { "access": "public" },
+  "magpie": { "icon": "https://pollinations.ai/favicon.ico" }
+}
