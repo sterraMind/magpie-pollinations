@@ -1,14 +1,17 @@
 # Pollinations for magpie and OpenCode
 
-Pollinations (https://pollinations.ai) as a provider plugin for magpie and OpenCode. The plugin signs in with a Pollinations secret key or a device code, discovers the live OpenAI-compatible text models, shows the Pollen wallet balance and quest status, and lists usage.
+Pollinations (https://pollinations.ai) as a provider plugin for magpie and OpenCode. The plugin signs in with a Pollinations secret key or a device code, discovers the live OpenAI-compatible text models, shows the Pollen wallet balance, and lists usage.
 
 ## What it does
 
 - **Two ways to sign in.** Paste a secret key (`sk_...`), or use the device code flow: the plugin opens the Pollinations consent page and you confirm a short code in the browser. The device flow uses Pollinations' own publishable client id; no client secret is embedded.
 - **Live models.** Reads `GET /models` and keeps every text model that serves `/v1/chat/completions`. Model ids keep their full `publisher/model` form, so models from different publishers never collide. Cost and context limits come from the vendor's own catalog.
 - **Wallet balance.** Shows total Pollen plus separate Quest and paid buckets when the key has the `account:usage` permission. The balance is published as a prepaid-wallet window so magpie's router can prefer accounts with more credit left.
-- **Quest status.** Reports how many quests are completed and how many rewards are waiting. Rewards can only be claimed on the Pollinations website: Pollinations provides no public API to claim them, so the plugin never reports a false "claimed".
 - **Usage.** Reads account usage and reports each call to magpie, including token counts and the USD cost Pollinations assigned.
+
+## Quests and check-in
+
+Quest completion happens server-side as the account uses models. Rewards must be claimed on the Pollinations website (https://enter.pollinations.ai/quests); Pollinations exposes no API to claim them. Since a plugin check-in cannot add quota, this plugin intentionally has no daily check-in hook and never shows a check-in control in magpie.
 
 ## Sign in
 

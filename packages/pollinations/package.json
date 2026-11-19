@@ -1,6 +1,6 @@
 {
   "name": "@sterra-mind/magpie-pollinations",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Pollinations provider for OpenCode and magpie: secret key or device-code sign-in, live OpenAI-compatible models, and Pollen wallet balance",
   "type": "module",
   "main": "./opencode.mjs",
